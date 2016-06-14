@@ -64,5 +64,6 @@ RUN usermod -u 1000 www-data
 # Assign working directory
 WORKDIR /var/www/site
 
+
 # Expose ports.
 EXPOSE 9000
