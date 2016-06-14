@@ -39,6 +39,14 @@ RUN docker-php-ext-install \
     pdo_mysql \
     pdo_pgsql
 
+# Install Memcached
+RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/php7.tar.gz" \
+    && mkdir -p /usr/src/php/ext/memcached \
+    && tar -C /usr/src/php/ext/memcached -zxvf /tmp/memcached.tar.gz --strip 1 \
+    && docker-php-ext-configure memcached \
+    && docker-php-ext-install memcached \
+    && rm /tmp/memcached.tar.gz
+
 # Install xdebug
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
@@ -48,9 +56,13 @@ ENV COMPOSER_HOME /root/composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ENV PATH $COMPOSER_HOME/vendor/bin:$PATH
 
+# Install mongodb driver
+RUN pecl install mongodb
+
 RUN usermod -u 1000 www-data
 
+# Assign working directory
 WORKDIR /var/www/site
 
+# Expose ports.
 EXPOSE 9000
-
