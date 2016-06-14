@@ -27,3 +27,7 @@ The following modules and extensions have been enabled, in addition to those you
 ## Composer
 
 Composer is installed globally in the image tagged latest (that is meant for CLI usage). Please, refer to their documentation for usage hints.
+
+## Author
+
+MobileSnapp (support@mobilesnapp.com)
